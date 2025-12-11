@@ -1,0 +1,73 @@
+.home-container {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin: 30px auto;
+  max-width: 1200px;
+}
+
+.card {
+  width: 230px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.book-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.author {
+  font-size: 14px;
+  color: #444;
+  margin-top: 10px;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.desc {
+  font-size: 14px;
+  color: #666;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.update-btn {
+  color: #0077ff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.delete-btn {
+  color: red;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}

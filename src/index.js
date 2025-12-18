@@ -6,10 +6,14 @@ import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
-import Addbook from "./Pages/Addbook";
+import Addbook from "./Pages/Requestbook";
 import Viewbook from "./Pages/Viewbook";
 import Login from "./Pages/Login";
-// just to create url and on which url which page should displayed
+import Requestbook from "./Pages/Requestbook";
+import Cart from "./Pages/Cart";
+import Confirm from "./Pages/Confirm";
+import ProtectedRoute from "./Pages/ProtectedRoute";
+
 const routerVariables = createBrowserRouter([
   {
     path: "/",
@@ -17,19 +21,27 @@ const routerVariables = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <ProtectedRoute><Home /></ProtectedRoute>,
       },
       {
         path: "/about",
         element: <About></About>,
       },
       {
-        path: "/addbook",
-        element: <Addbook></Addbook>,
+        path: "/Requestbook",
+        element: <Requestbook></Requestbook>
       },
       {
         path: "/viewbook",
         element: <Viewbook></Viewbook>,
+      },
+      {
+        path: "/cart",
+        element: <Cart></Cart>,
+      },
+      {
+        path: "/confirm",
+        element: <Confirm></Confirm>,
       },
       {
         path: "*",

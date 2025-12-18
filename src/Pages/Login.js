@@ -1,97 +1,185 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./../Styles/login.css";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  let [username, setUsername] = useState("");
+  let [password, setPassword] = useState("");
+  let [isRegistering, setIsRegistering] = useState(false);
+  let [regUsername, setRegUsername] = useState("");
+  let [regEmail, setRegEmail] = useState("");
+  let [regPassword, setRegPassword] = useState("");
+  let [loading, setLoading] = useState(false);
+  let [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (email === "admin@book.com" && password === "admin") {
-      localStorage.setItem("uss erRole", "admin");
-      navigate("/Home");
-    } else {
-      localStorage.setItem("userRole", "user");
-      localStorage.setItem("userName", email);
-      navigate("/Home");
+    try {
+      setLoading(true);
+      setErrorMessage("");
+      
+      console.log("Logging in with:", { username, password });
+      
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+      });
+
+      console.log("Login response status:", response.status);
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Login successful:", result);
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userRole", "user");
+        localStorage.setItem("userName", result.user.username);
+        localStorage.setItem("userEmail", result.user.email);
+        localStorage.setItem("userId", result.user.id);
+        localStorage.setItem("token", result.token);
+        navigate("/");
+        window.location.reload();
+      } else {
+        const error = await response.json();
+        console.error("Login failed:", error);
+        setErrorMessage(error.message || "Invalid credentials!");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setErrorMessage("Login failed: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    if (!regUsername || !regEmail || !regPassword) {
+      setErrorMessage("Please fill in all fields");
+      return;
+    }
+    try {
+      setLoading(true);
+      setErrorMessage("");
+      
+      console.log("Registering with:", { username: regUsername, email: regEmail, password: regPassword });
+      
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username: regUsername, email: regEmail, password: regPassword })
+      });
+
+      console.log("Register response status:", response.status);
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Registration successful:", result);
+        alert("Registration successful! Please login with your credentials.");
+        setIsRegistering(false);
+        setRegUsername("");
+        setRegEmail("");
+        setRegPassword("");
+      } else {
+        const error = await response.json();
+        console.error("Registration failed:", error);
+        setErrorMessage(error.message || "Registration failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setErrorMessage("Registration failed: " + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        backgroundColor: "#f0f0f0",
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "#e0e0e0",
-          padding: "50px",
-          maxWidth: "400px",
-          borderRadius: "10px",
-          textAlign: "center",
-        }}
-      >
-        <h2>Login</h2>
-        <form onSubmit={handleLogin}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{
-              width: "100%",
-              padding: "10px",
-              margin: "10px 0",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-            }}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{
-              width: "100%",
-              padding: "10px",
-              margin: "10px 0",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-            }}
-          />
+    <div className="login">
+      <form className="loginForm" onSubmit={isRegistering ? handleRegister : handleLogin}>
+        <h1>{isRegistering ? "Register" : "Login"}</h1>
+        <br></br>
+        
+        {errorMessage && <p style={{ color: "red", marginBottom: "10px", fontSize: "14px" }}>{errorMessage}</p>}
+
+        {isRegistering ? (
+          <>
+            <label>Username</label>
+            <input
+              value={regUsername}
+              onChange={(e) => setRegUsername(e.target.value)}
+              type="text"
+              placeholder="Enter username"
+              required
+            />
+
+            <label>Email</label>
+            <input
+              value={regEmail}
+              onChange={(e) => setRegEmail(e.target.value)}
+              type="email"
+              placeholder="Enter email"
+              required
+            />
+
+            <label>Password</label>
+            <input
+              value={regPassword}
+              onChange={(e) => setRegPassword(e.target.value)}
+              type="password"
+              placeholder="Enter password"
+              required
+            />
+          </>
+        ) : (
+          <>
+            <label>Username</label>
+            <input
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              type="text"
+              placeholder="Enter username"
+              required
+            />
+
+            <label>Password</label>
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="Enter password"
+              required
+            />
+          </>
+        )}
+
+        <button className="loginButton" type="submit" disabled={loading}>
+          {loading ? "Processing..." : isRegistering ? "Register" : "Login"}
+        </button>
+
+        <p style={{ marginTop: "15px", textAlign: "center", fontSize: "14px" }}>
+          {isRegistering ? "Already have an account? " : "Don't have an account? "}
           <button
-            type="submit"
-            style={{
-              width: "100%",
-              padding: "10px",
-              backgroundColor: "#4CAF50",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
+            type="button"
+            onClick={() => {
+              setIsRegistering(!isRegistering);
+              setUsername("");
+              setPassword("");
+              setRegUsername("");
+              setRegEmail("");
+              setRegPassword("");
+              setErrorMessage("");
             }}
+            style={{ background: "none", border: "none", color: "blue", cursor: "pointer", textDecoration: "underline", fontSize: "14px" }}
           >
-            Login
+            {isRegistering ? "Login here" : "Register here"}
           </button>
-        </form>
-        <p>
-          Don't have an account?{" "}
-          <a href="/signup" style={{ color: "#2196F3" }}>
-            Sign Up
-          </a>
         </p>
-        <p style={{ fontSize: "12px", color: "gray" }}>
-          Admin: admin@book.com / admin
-        </p>
-      </div>
+      </form>
     </div>
   );
 };

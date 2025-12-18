@@ -1,73 +1,139 @@
-.home-container {
+/* Container for the whole page */
+.home {
+  padding: 20px 40px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Sections (Best Sellers, New Arrivals) */
+.section {
+  margin-bottom: 40px;
+}
+
+.section-header {
   display: flex;
-  justify-content: center;
-  gap: 25px;
-  flex-wrap: wrap;
-  margin: 30px auto;
-  max-width: 1200px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 5px;
 }
 
-.card {
-  width: 230px;
-  background: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: 0.3s;
+.section-header h1 {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
 }
 
-.card:hover {
-  transform: translateY(-6px);
+.see-all {
+  color: #e91e63;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
 }
 
-.book-img {
+/* ================= HORIZONTAL SCROLL ROW ================= */
+.book-row {
+  display: flex;             /* Align items in a row */          /* Enable horizontal scroll */
+  gap: 40px;                 /* Space between cards */
+  padding-bottom: 15px;      /* Space for the scrollbar */
+  scroll-behavior: smooth;   /* Smooth scrolling effect */
+}
+
+/* Hide default scrollbar but keep functionality (Optional) */
+/* If you want a visible scrollbar, remove the lines below */
+.book-row::-webkit-scrollbar {
+  height: 8px;
+}
+.book-row::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+.book-row::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+.book-row::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+/* ================= BOOK CARD ================= */
+.book-card {
+  flex: 0 0 auto;           /* CRITICAL: Prevents cards from shrinking */
+  width: 200px;             /* Fixed width for every card */
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+  text-align: left;
+}
+
+.book-card:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+}
+
+/* IMAGE BOX */
+.img-box {
+  position: relative;
   width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 6px;
+  height: 240px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  background-color: #f0f0f0;
 }
 
-.author {
-  font-size: 14px;
-  color: #444;
-  margin-top: 10px;
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures image fills the box nicely */
 }
 
-.title {
-  font-size: 17px;
+/* DISCOUNT TAG */
+.discount {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #000;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 11px;
+  border-radius: 4px;
   font-weight: bold;
-  margin: 5px 0;
 }
 
-.desc {
-  font-size: 14px;
-  color: #666;
+/* TEXT STYLING */
+.book-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 5px 0;
+  white-space: nowrap;       /* Keeps title on one line */
+  overflow: hidden;          /* Hides overflow text */
+  text-overflow: ellipsis;   /* Adds '...' if text is too long */
+}
+
+.book-author {
+  font-size: 13px;
+  color: #777;
+  margin: 0 0 8px 0;
+}
+
+.rating {
+  font-size: 13px;
+  color: #ff9800; /* Orange for stars */
+  margin-bottom: 8px;
 }
 
 .price {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
-  margin-top: 5px;
+  color: #333;
+  margin: 0;
 }
-
-.actions {
+.your-card-container {
   display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.update-btn {
-  color: #0077ff;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.delete-btn {
-  color: red;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
+  justify-content: center; /* This moves items to the center */
+  flex-wrap: wrap;         /* This ensures they wrap to the next line on small screens */
+  gap: 20px;               /* Adds space between the cards */
 }

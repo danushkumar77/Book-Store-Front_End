@@ -1,0 +1,220 @@
+/* ================= CONTAINER ================= */
+
+.home-container {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin: 30px auto;
+  max-width: 1200px;
+}
+
+/* ================= CARD ================= */
+
+.card {
+  width: 230px;
+  height: 520px; /* 🔥 FIXED HEIGHT */
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: 0.3s;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 🔥 buttons stay bottom */
+}
+
+/* ================= IMAGE ================= */
+
+.book-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* ================= TEXT ================= */
+
+.author {
+  font-size: 14px;
+  color: #444;
+  margin-top: 8px;
+  min-height: 20px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 6px 0;
+  min-height: 42px; /* 🔥 equal title height */
+}
+
+.desc {
+  font-size: 14px;
+  color: #666;
+  min-height: 18px;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 6px;
+}
+
+.rating {
+  font-size: 14px;
+  color: #ff9800;
+  min-height: 18px;
+}
+
+/* ================= ACTION BUTTONS ================= */
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.update-btn {
+  color: #0077ff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.delete-btn {
+  color: red;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ================= HOVER ================= */
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.card {
+  cursor: pointer;
+}
+/* ================= SEARCH ================= */
+
+.search-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 40px auto 50px;
+}
+
+.search-box input {
+  width: 420px;
+  padding: 12px 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box input:focus {
+  border-color: #cf1c1c;
+  box-shadow: 0 0 6px rgba(254, 2, 2, 0.4);
+}
+
+/* ================= NO RESULTS ================= */
+
+.no-results {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  color: #ff0000;
+  margin-top: 40px;
+}
+
+/* ================= MODAL ================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+}
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 900px;
+  width: 92%;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+}
+.modal-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+.modal-img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.modal-details h2 { margin: 0 0 8px 0; }
+.modal-details p { margin: 6px 0; color: #333; }
+
+/* Add to Cart Button */
+.btn-add-to-cart {
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.btn-add-to-cart:hover {
+  background-color: #218838;
+}
+
+.btn-modal-add-to-cart {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 15px;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.btn-modal-add-to-cart:hover {
+  background-color: #218838;
+}
+
+@media (max-width: 768px) {
+  .modal-grid { grid-template-columns: 1fr; }
+  .modal-img { height: 260px; }
+}

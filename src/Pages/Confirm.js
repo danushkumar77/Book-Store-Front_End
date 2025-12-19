@@ -85,7 +85,7 @@ const Confirm = () => {
       };
 
       // Save order to database
-      const response = await fetch("http://localhost:5000/api/orders", {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

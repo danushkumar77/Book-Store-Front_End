@@ -13,7 +13,7 @@ function App() {
     const fetchBookstoreData = async () => 
       {
       try {
-        const response = await fetch ("http://localhost:3000/Bookstore.json");
+        const response = await fetch (`${process.env.REACT_APP_BACKEND_URL}/Bookstore.json`);
         const da = await response.json();
         setData(da);
       } catch (err) {}

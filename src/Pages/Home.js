@@ -7,7 +7,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/Bookstore.json")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/Bookstore.json`)
       .then((res) => res.json())
       .then((data) => setBooks(data.books))
       .catch((err) => console.log(err));
